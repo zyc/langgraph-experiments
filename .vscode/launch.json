@@ -2,10 +2,10 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "main_basis.py",
+      "name": "1_main_basis.py",
       "type": "debugpy",
       "request": "launch",
-      "module": "src.main_basis",
+      "module": "src.1_main_basis",
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal",
       "justMyCode": true,
@@ -18,10 +18,10 @@
       "internalConsoleOptions": "neverOpen"
     },
     {
-      "name": "main_tools.py",
+      "name": "2_main_tools.py",
       "type": "debugpy",
       "request": "launch",
-      "module": "src.main_tools",
+      "module": "src.2_main_tools",
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal",
       "justMyCode": true,
@@ -34,10 +34,10 @@
       "internalConsoleOptions": "neverOpen"
     },
     {
-      "name": "main_agent.py",
+      "name": "3_main_agent.py",
       "type": "debugpy",
       "request": "launch",
-      "module": "src.main_agent",
+      "module": "src.3_main_agent",
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal",
       "justMyCode": true,

@@ -8,7 +8,7 @@ from langchain_core.messages import HumanMessage
 from langchain_openai import ChatOpenAI
 from prettyprinter import pprint
 
-from src.chat_kargs import get_chat_kargs
+from src.helpers import get_chat_kargs
 
 
 async def main() -> None:

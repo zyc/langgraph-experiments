@@ -6,7 +6,6 @@ from datetime import datetime
 from pathlib import Path
 from typing import cast
 
-from IPython.display import Image, display
 from langchain_core.messages import AnyMessage, HumanMessage
 from langchain_core.runnables.config import RunnableConfig
 from langchain_openai import ChatOpenAI
@@ -14,7 +13,7 @@ from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import START, MessagesState, StateGraph
 from langgraph.prebuilt import ToolNode, tools_condition
 
-from src.chat_kargs import get_chat_kargs
+from src.helpers import get_chat_kargs, render_graph
 
 # from prettyprinter import pprint
 
@@ -60,7 +59,8 @@ async def main() -> None:
 
     memory = MemorySaver()
     react_graph = graph.compile(checkpointer=memory)
-    display(Image(react_graph.get_graph(xray=True).draw_mermaid_png()))
+    compiled_graph = react_graph.get_graph(xray=True)
+    await render_graph(compiled_graph)
 
     messages: list[AnyMessage] = [
         # prompt,
