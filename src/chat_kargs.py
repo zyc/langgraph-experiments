@@ -19,12 +19,9 @@ async def get_chat_kargs():
         "model": vllm_model_id,
         "temperature": 0,
         "default_headers": {"Authorization": f"Bearer {access_token}"},
-        # "openai_api_key": None,
         "base_url": base_url,
         "api_key": "EMPTY",
 
     }
-
-    # chat_kwargs["openai_api_base"] = base_url.rstrip("/")
 
     return chat_kwargs

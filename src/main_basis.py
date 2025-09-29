@@ -4,7 +4,7 @@ import asyncio
 import sys
 from pathlib import Path
 
-from langchain_core.messages import HumanMessage, SystemMessage
+from langchain_core.messages import HumanMessage
 from langchain_openai import ChatOpenAI
 from prettyprinter import pprint
 
@@ -17,16 +17,8 @@ async def main() -> None:
     chat_kwargs = await get_chat_kargs()
     chat = ChatOpenAI(**chat_kwargs)
 
-    prompt = SystemMessage(
-        content=(
-            "Você é um assistente que responde apenas 'sim' ou 'não', "
-            "mas sempre explica utilizando o contexto fornecido."
-        )
-    )
-
     message = await chat.ainvoke(
         [
-            prompt,
             HumanMessage(content="que dia é hoje exatamente?"),
         ]
     )

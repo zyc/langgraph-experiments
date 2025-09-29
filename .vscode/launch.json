@@ -16,6 +16,38 @@
       },
       "envFile": "${workspaceFolder}/.env",
       "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "name": "main_tools.py",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "src.main_tools",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "purpose": ["debug-in-terminal"],
+      "python": "${workspaceFolder}/.venv/bin/python",
+      "windows": {
+        "python": "${workspaceFolder}\\.venv\\Scripts\\python.exe"
+      },
+      "envFile": "${workspaceFolder}/.env",
+      "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "name": "main_agent.py",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "src.main_agent",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "purpose": ["debug-in-terminal"],
+      "python": "${workspaceFolder}/.venv/bin/python",
+      "windows": {
+        "python": "${workspaceFolder}\\.venv\\Scripts\\python.exe"
+      },
+      "envFile": "${workspaceFolder}/.env",
+      "internalConsoleOptions": "neverOpen"
     }
   ]
 }

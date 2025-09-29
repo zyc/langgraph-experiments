@@ -1,38 +1,38 @@
-
 """Simple Hello World entry point module."""
 
 import asyncio
 import sys
+from datetime import datetime
 from pathlib import Path
 
-from langchain_core.messages import HumanMessage, SystemMessage
+from langchain_core.messages import HumanMessage
 from langchain_openai import ChatOpenAI
 from prettyprinter import pprint
 
 from src.chat_kargs import get_chat_kargs
 
 
+def agora() -> datetime:
+    """Abtém o dia e hora atuais."""
+    return datetime.now()
+
+
 async def main() -> None:
     """Entry point of the program. Obtains an OAuth token and runs a sample chat."""
 
+    tools = [agora]
+
     chat_kwargs = await get_chat_kargs()
     chat = ChatOpenAI(**chat_kwargs)
-
-    prompt = SystemMessage(
-        content=(
-            "Você é um assistente que responde apenas 'sim' ou 'não', "
-            "mas sempre explica utilizando o contexto fornecido."
-        )
-    )
+    chat = chat.bind_tools(tools)
 
     message = await chat.ainvoke(
         [
-            prompt,
             HumanMessage(content="que dia é hoje exatamente?"),
         ]
     )
 
-    pprint(message.content)
+    pprint(message.additional_kwargs.get("tool_calls", []))
 
 
 if __package__ in (None, ""):
