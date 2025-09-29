@@ -21,7 +21,6 @@ async def get_chat_kargs():
         "default_headers": {"Authorization": f"Bearer {access_token}"},
         "base_url": base_url,
         "api_key": "EMPTY",
-
     }
 
     return chat_kwargs
