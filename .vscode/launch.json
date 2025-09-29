@@ -2,10 +2,10 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Python: main.py (Poetry)",
+      "name": "main_basis.py",
       "type": "debugpy",
       "request": "launch",
-      "module": "src.main",
+      "module": "src.main_basis",
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal",
       "justMyCode": true,
