@@ -1,5 +1,6 @@
 """Simple Hello World entry point module."""
 
+
 import asyncio
 import sys
 from datetime import datetime
@@ -15,10 +16,8 @@ from langgraph.prebuilt import ToolNode, tools_condition
 
 from src.helpers import get_chat_kargs, render_graph
 
-# from prettyprinter import pprint
 
-
-def agora() -> datetime:
+async def tool_agora() -> datetime:
     """Abtém o dia e hora atuais."""
     return datetime.now()
 
@@ -27,11 +26,10 @@ async def main() -> None:
     """Entry point of the program. Obtains an OAuth token and runs a sample chat."""
 
     # tools = []
-    tools = [agora]
+    tools = [tool_agora]
 
     chat_kwargs = await get_chat_kargs()
-    chat = ChatOpenAI(**chat_kwargs)
-    chat_with_tools = chat.bind_tools(tools)
+    chat = ChatOpenAI(**chat_kwargs).bind_tools(tools)
 
     # def assistant(state: MessagesState):
     #     return {"messages": [chat.invoke(state["messages"])]}
@@ -43,32 +41,33 @@ async def main() -> None:
     #     )
     # )
 
-    async def call_model(state: MessagesState) -> MessagesState:
-        response = cast(AnyMessage, await chat_with_tools.ainvoke(state["messages"]))
-        return {"messages": [response]}
+    async def invoke_chat(state: MessagesState) -> MessagesState:
+        response = cast(AnyMessage, await chat.ainvoke(state["messages"]))
+        return MessagesState(messages=[response])
+
+    node_chat_name = getattr(chat, "model_name", "chat")
+    node_tool_name = "tools"
 
     graph = StateGraph(MessagesState)
-    graph.add_node("chat", call_model)
-    graph.add_node("tools", ToolNode(tools))
-    graph.add_edge(START, "chat")
+    graph.add_node(node_chat_name, invoke_chat)
+    graph.add_node(node_tool_name, ToolNode(tools))
+    graph.add_edge(START, node_chat_name)
     graph.add_conditional_edges(
-        "chat",
+        node_chat_name,
         tools_condition,
     )
-    graph.add_edge("tools", "chat")
+    graph.add_edge(node_tool_name, node_chat_name)
 
     memory = MemorySaver()
     react_graph = graph.compile(checkpointer=memory)
     compiled_graph = react_graph.get_graph(xray=True)
     await render_graph(compiled_graph)
 
-    messages: list[AnyMessage] = [
-        # prompt,
-        HumanMessage(content="que horas são e que dia é hoje?"),
-    ]
-
-    state = MessagesState(messages=messages)
+    message = HumanMessage(
+        content="Que dia é hoje e quando será o próximo domingo?")
+    state = MessagesState(messages=[message])
     config = RunnableConfig(configurable={"thread_id": "1"})
+
     result = await react_graph.ainvoke(state, config=config)
 
     for m in result["messages"]:

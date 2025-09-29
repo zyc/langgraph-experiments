@@ -1,5 +1,6 @@
 """Simple Hello World entry point module."""
 
+
 import asyncio
 import sys
 from datetime import datetime
@@ -13,7 +14,7 @@ from src.helpers import get_chat_kargs
 
 
 def agora() -> datetime:
-    """Abtém o dia e hora atuais."""
+    """Obtém o dia e hora atuais."""
     return datetime.now()
 
 
