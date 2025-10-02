@@ -61,7 +61,7 @@ async def main() -> None:
     memory = MemorySaver()
     react_graph = graph.compile(checkpointer=memory)
     compiled_graph = react_graph.get_graph(xray=True)
-    render_graph(compiled_graph)
+    await render_graph(compiled_graph)
 
     message = HumanMessage(
         content="Que dia é hoje e quando será o próximo domingo?")

@@ -48,6 +48,22 @@
       },
       "envFile": "${workspaceFolder}/.env",
       "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "name": "main_4_chatbot.py",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "src.main_4_chatbot",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "purpose": ["debug-in-terminal"],
+      "python": "${workspaceFolder}/.venv/bin/python",
+      "windows": {
+        "python": "${workspaceFolder}\\.venv\\Scripts\\python.exe"
+      },
+      "envFile": "${workspaceFolder}/.env",
+      "internalConsoleOptions": "neverOpen"
     }
   ]
 }
